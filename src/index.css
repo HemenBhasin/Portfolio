@@ -1,0 +1,683 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Source+Serif+4:ital@1&display=swap');
+@import "tailwindcss";
+
+/* ── Design Tokens ── */
+:root {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --text: #f5f5f5;
+  --muted: #878787;
+  --stroke: #1f1f1f;
+  --accent-1: #89AACC;
+  --accent-2: #4E85BF;
+  --font-body: 'Poppins', sans-serif;
+  --font-display: 'Source Serif 4', serif;
+  --panel-width: min(92vw, 1320px);
+  --panel-radius: 32px;
+}
+
+/* ── Base ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: #000;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ══════════════════════════════════════════════
+   LAYOUT: Content floating over fixed video
+   ══════════════════════════════════════════════ */
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 0;
+  /* Add padding so panel floats off the top/bottom edges */
+}
+
+.content-panel {
+  width: var(--panel-width);
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--panel-radius);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  /* Subtle border for the whole panel */
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+  /* Drop shadow to emphasize floating */
+}
+
+/* The dark body below the hero — solid dark bg with rounded bottom */
+.panel-body {
+  background-color: var(--bg);
+  position: relative;
+  z-index: 2;
+  /* Sit above the hero bottom fade */
+}
+
+/* ── Accent Gradient Utility ── */
+.accent-gradient {
+  background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+}
+
+.accent-gradient-reverse {
+  background: linear-gradient(270deg, #89AACC 0%, #4E85BF 100%);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--stroke);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* ── Custom Animations ── */
+@keyframes scroll-down {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+}
+
+@keyframes role-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse-dot {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.5);
+  }
+}
+
+.animate-scroll-down {
+  animation: scroll-down 1.5s ease-in-out infinite;
+}
+
+.animate-role-fade-in {
+  animation: role-fade-in 0.4s ease-out forwards;
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ── Halftone Overlay ── */
+.halftone-overlay {
+  background-image: radial-gradient(circle, #000 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: rgba(137, 170, 204, 0.2);
+  color: var(--text);
+}
+
+/* ══════════════════════════════════════════════
+   HERO SECTION — transparent, video shows through
+   ══════════════════════════════════════════════ */
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 64px);
+  /* Account for wrapper padding */
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* The hero has its own dark overlay so text is readable */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center top, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.55) 100%);
+  pointer-events: none;
+}
+
+/* Bottom gradient that blends hero into the dark panel-body below */
+.hero-bottom-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to top, var(--bg), transparent);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ══════════════════════════════════════════════
+   NAVBAR
+   ══════════════════════════════════════════════ */
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 9999px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(20, 20, 20, 0.85);
+  padding: 6px 8px;
+  transition: box-shadow 0.3s ease;
+}
+
+.nav-pill.scrolled {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.nav-link {
+  font-size: 13px;
+  font-weight: 400;
+  border-radius: 9999px;
+  padding: 8px 18px;
+  color: var(--muted);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+}
+
+.nav-link:hover {
+  color: var(--text);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.nav-link.active {
+  color: var(--text);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.nav-divider {
+  width: 1px;
+  height: 20px;
+  background-color: var(--stroke);
+  margin: 0 4px;
+}
+
+/* ══════════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════════ */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  white-space: nowrap;
+  border: none;
+  letter-spacing: 0.01em;
+}
+
+.btn-primary.solid {
+  background-color: var(--text);
+  color: var(--bg);
+}
+
+.btn-primary.solid:hover {
+  background: linear-gradient(90deg, #89AACC, #4E85BF);
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 0 40px rgba(137, 170, 204, 0.3);
+}
+
+.btn-primary.outline {
+  background-color: transparent;
+  color: var(--text);
+  border: 2px solid var(--stroke);
+}
+
+.btn-primary.outline:hover {
+  border-color: #89AACC;
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(137, 170, 204, 0.15);
+}
+
+.btn-gradient-border {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  color: var(--text);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  background: var(--bg);
+  border: 1px solid var(--stroke);
+  transition: all 0.3s ease;
+}
+
+.btn-gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #89AACC, #4E85BF);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.btn-gradient-border:hover::before {
+  opacity: 1;
+}
+
+.btn-gradient-border:hover {
+  border-color: transparent;
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(137, 170, 204, 0.2);
+}
+
+/* ── Say hi nav button ── */
+.nav-sayhi {
+  position: relative;
+  font-size: 13px;
+  font-weight: 400;
+  border-radius: 9999px;
+  padding: 8px 18px;
+  color: var(--text);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-sayhi::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #89AACC, #4E85BF);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.nav-sayhi:hover::before {
+  opacity: 1;
+}
+
+.nav-sayhi span {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(20, 20, 20, 0.95);
+  border-radius: 9999px;
+  padding: 8px 18px;
+  margin: -8px -18px;
+}
+
+/* ══════════════════════════════════════════════
+   PROJECT CARDS
+   ══════════════════════════════════════════════ */
+
+.project-card {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--stroke);
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border-color: rgba(137, 170, 204, 0.2);
+}
+
+.project-card img {
+  transition: transform 0.7s ease;
+}
+
+.project-card:hover img {
+  transform: scale(1.05);
+}
+
+.project-card .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-card:hover .overlay {
+  opacity: 1;
+}
+
+/* ══════════════════════════════════════════════
+   JOURNAL ENTRIES
+   ══════════════════════════════════════════════ */
+
+.journal-entry {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 28px;
+  border-radius: 9999px;
+  border: 1px solid var(--stroke);
+  background: rgba(20, 20, 20, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.journal-entry:hover {
+  background: var(--surface);
+  border-color: rgba(137, 170, 204, 0.2);
+  transform: translateX(4px);
+}
+
+@media (max-width: 640px) {
+  .journal-entry {
+    border-radius: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 20px;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   EXPLORATION CARDS
+   ══════════════════════════════════════════════ */
+
+.exploration-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--stroke) !important;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  aspect-ratio: 1;
+  max-width: 320px;
+}
+
+.exploration-card:hover {
+  transform: scale(1.03) !important;
+  border-color: rgba(137, 170, 204, 0.3) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+}
+
+.exploration-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.exploration-card:hover img {
+  transform: scale(1.1);
+}
+
+.exploration-card:hover .card-label {
+  opacity: 1 !important;
+}
+
+/* ══════════════════════════════════════════════
+   SKILL / STATS CARDS
+   ══════════════════════════════════════════════ */
+
+.skill-card {
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid var(--stroke);
+  background: rgba(20, 20, 20, 0.5);
+  transition: all 0.3s ease;
+}
+
+.skill-card:hover {
+  border-color: rgba(137, 170, 204, 0.2);
+  background: var(--surface);
+}
+
+/* ══════════════════════════════════════════════
+   SOCIAL LINKS
+   ══════════════════════════════════════════════ */
+
+.social-link {
+  font-size: 12px;
+  padding: 8px 20px;
+  border-radius: 9999px;
+  border: 1px solid var(--stroke);
+  color: var(--muted);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  white-space: nowrap;
+  font-family: var(--font-body);
+}
+
+.social-link:hover {
+  background: var(--surface);
+  color: var(--text);
+  border-color: rgba(137, 170, 204, 0.3);
+}
+
+/* ══════════════════════════════════════════════
+   SECTION EYEBROW
+   ══════════════════════════════════════════════ */
+
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.section-eyebrow .line {
+  width: 32px;
+  height: 1px;
+  background: var(--stroke);
+}
+
+.section-eyebrow .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+  font-family: var(--font-body);
+}
+
+/* ══════════════════════════════════════════════
+   LIGHTBOX
+   ══════════════════════════════════════════════ */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: rgba(10, 10, 10, 0.92);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  :root {
+    --panel-width: 100vw;
+    --panel-radius: 0px;
+  }
+
+  .content-wrapper {
+    padding: 0;
+  }
+
+  .content-panel {
+    border: none;
+    border-radius: 0;
+  }
+
+  .hero-section {
+    height: 100vh;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   LIQUID GLASS MORPHISM
+   ══════════════════════════════════════════════ */
+@layer components {
+  .liquid-glass {
+    background: rgba(255,255,255,0.01);
+    background-blend-mode: luminosity;
+    backdrop-filter: blur(4px);
+    border: none;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .liquid-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1.4px;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%, transparent 40%, transparent 60%, rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .liquid-glass-strong {
+    background: rgba(255,255,255,0.01);
+    background-blend-mode: luminosity;
+    backdrop-filter: blur(50px);
+    border: none;
+    box-shadow: 4px 4px 4px rgba(0,0,0,0.05), inset 0 1px 1px rgba(255,255,255,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+  .liquid-glass-strong::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1.4px;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255,255,255,0.50) 0%, rgba(255,255,255,0.20) 20%, transparent 40%, transparent 60%, rgba(255,255,255,0.20) 80%, rgba(255,255,255,0.50) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
