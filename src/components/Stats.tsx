@@ -119,6 +119,7 @@ export default function Stats() {
                     <span
                       key={skill}
                       className="liquid-glass rounded-full px-4 py-2 text-xs font-medium tracking-wide text-white/80 transition-transform hover:scale-105"
+                      style={{ padding: '3px', paddingLeft: '8px', paddingRight: '8px' }}
                     >
                       {skill}
                     </span>

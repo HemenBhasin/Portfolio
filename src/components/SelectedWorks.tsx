@@ -186,33 +186,34 @@ export default function SelectedWorks() {
 
                   {/* Indented Content Block */}
                   <div className="flex shrink-0 flex-col gap-4 ml-4 sm:ml-8 md:gap-6 md:ml-12 lg:ml-16">
-                    <h3 className="shrink-0 text-3xl font-medium leading-tight text-white md:text-4xl lg:text-5xl">
+                    <h3 className="shrink-0 text-3xl font-medium leading-tight text-white md:text-4xl lg:text-5xl" style={{ marginLeft: '10px' }}>
                       {project.title}
                     </h3>
 
-                    <p className="shrink-0 max-w-md text-sm leading-relaxed text-white/70 md:text-base lg:text-lg">
+                    <p className="shrink-0 max-w-md text-sm leading-relaxed text-white/70 md:text-base lg:text-lg" style={{ marginLeft: '10px' }}>
                       {project.description}
                     </p>
 
-                    <div className="flex shrink-0 flex-wrap gap-2">
+                    <div className="flex shrink-0 flex-wrap gap-2" style={{ marginLeft: '10px' }}>
                       {project.tech.map((t) => (
                         <span
                           key={t}
                           className="inline-flex shrink-0 items-center rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-widest text-white/80 backdrop-blur-sm sm:px-4 sm:py-2 sm:text-xs"
+                          style={{ padding: '5px', paddingLeft: '10px', paddingRight: '10px', paddingTop: '5px', paddingBottom: '5px' }}
                         >
                           {t}
                         </span>
                       ))}
                     </div>
 
-                    <div className="mt-2 shrink-0 pb-4">
+                    <div className="mt-2 shrink-0 pb-4" style={{ marginLeft: '10px' }}>
                       <a
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border-2 border-[#D7E2EA] px-6 py-3 text-xs font-semibold uppercase tracking-widest text-[#D7E2EA] transition-all hover:bg-[#D7E2EA]/10 sm:px-8 sm:py-3.5 sm:text-sm lg:px-10 lg:py-4 lg:text-base"
                       >
-                        <span className="relative z-10">Live Project</span>
+                        <span className="relative z-10" style={{ padding: '5px', paddingLeft: '8px', paddingRight: '8px' }}>Live Project</span>
                       </a>
                     </div>
                   </div>
