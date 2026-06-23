@@ -1,26 +1,27 @@
 import React from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { Bot, TrendingUp, Laptop, Network } from 'lucide-react';
 
 const CERTIFICATIONS = [
   {
     title: 'The Complete Full-Stack Web Development Bootcamp',
     issuer: 'Udemy',
-    icon: '💻',
+    icon: <Laptop className="h-6 w-6 text-white/80" />,
   },
   {
     title: 'Solutions Architecture Job Simulation',
     issuer: 'Forage',
-    icon: '🏗️',
+    icon: <Network className="h-6 w-6 text-white/80" />,
   },
   {
     title: 'Introduction to Machine Learning',
     issuer: 'NPTEL',
-    icon: '🤖',
+    icon: <Bot className="h-6 w-6 text-white/80" />,
   },
   {
     title: 'Marketing Analytics',
     issuer: 'NPTEL',
-    icon: '📊',
+    icon: <TrendingUp className="h-6 w-6 text-white/80" />,
   },
 ];
 

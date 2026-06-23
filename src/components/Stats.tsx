@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { OrbitingSkills, type OrbitSkillItem } from "@/components/unlumen-ui/orbiting-skills";
+import { Code2, Terminal, Waves, Triangle, Server, Laptop } from 'lucide-react';
 import { CLOUDFRONT_1 } from './BackgroundVideo';
 
 // 👉 Change this variable to test different videos behind the skills section!
@@ -7,12 +8,12 @@ import { CLOUDFRONT_1 } from './BackgroundVideo';
 const ACTIVE_SKILLS_VIDEO = CLOUDFRONT_1;
 
 const SKILLS: OrbitSkillItem[] = [
-  { label: "React", icon: <span className="text-base leading-none">⚛️</span> },
-  { label: "TypeScript", icon: <span className="text-base leading-none">🔷</span> },
-  { label: "Tailwind", icon: <span className="text-base leading-none">🌊</span> },
-  { label: "Next.js", icon: <span className="text-base leading-none">▲</span> },
-  { label: "Node.js", icon: <span className="text-base leading-none">🟩</span> },
-  { label: "Python", icon: <span className="text-base leading-none">🐍</span> },
+  { label: "React", icon: <Code2 className="h-5 w-5 text-[#61DAFB]" /> },
+  { label: "TypeScript", icon: <Terminal className="h-5 w-5 text-[#3178C6]" /> },
+  { label: "Tailwind", icon: <Waves className="h-5 w-5 text-[#06B6D4]" /> },
+  { label: "Next.js", icon: <Triangle className="h-5 w-5 text-white" /> },
+  { label: "Node.js", icon: <Server className="h-5 w-5 text-[#339933]" /> },
+  { label: "Python", icon: <Terminal className="h-5 w-5 text-[#FFD43B]" /> },
 ];
 
 const SKILL_CATEGORIES = [
@@ -134,7 +135,7 @@ export default function Stats() {
         <div className="mt-36 mb-12 flex items-center justify-center md:mt-48" style={{ margin: '50px' }}>
           <OrbitingSkills items={SKILLS} radius={110} duration={15} followCursor={true}>
             <div className="liquid-glass flex h-24 w-24 items-center justify-center rounded-full shadow-2xl">
-              <span className="text-4xl">💻</span>
+              <Laptop className="h-10 w-10 text-white/80" />
             </div>
           </OrbitingSkills>
         </div>

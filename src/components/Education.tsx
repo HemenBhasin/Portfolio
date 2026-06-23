@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { GraduationCap } from 'lucide-react';
 
 export default function Education() {
   return (
@@ -59,7 +60,7 @@ export default function Education() {
             <div className="flex h-full w-full flex-col justify-between p-6 md:p-8">
               <div className="flex flex-col gap-4">
                 <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-2xl shadow-inner border border-white/10" style={{ marginLeft: '3px' }}>
-                  🎓
+                  <GraduationCap className="h-6 w-6 text-white/80" />
                 </span>
                 <h3 className="text-lg font-semibold leading-tight text-white/95 sm:text-xl" style={{ marginLeft: '15px', marginTop: '8px', marginBottom: '8px' }}>
                   Bachelor of Computer Science and Engineering

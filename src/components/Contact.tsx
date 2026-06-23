@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { Mail, Phone, Code2, Briefcase, MapPin } from 'lucide-react';
 import { Map, MapMarker, MarkerContent } from './ui/map';
 
 const MARQUEE_TEXT = 'BUILDING THE FUTURE • ';
@@ -79,23 +80,33 @@ export default function Contact() {
               
               <div className="flex flex-col gap-6">
                 <a href="mailto:hemenbhasin@gmail.com" className="group flex items-center gap-4 text-white/80 hover:text-white transition-colors text-lg">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform">📧</span>
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform">
+                    <Mail className="h-6 w-6 text-white/80" />
+                  </span>
                   hemenbhasin@gmail.com
                 </a>
                 <div className="group flex items-center gap-4 text-white/80 hover:text-white transition-colors text-lg cursor-pointer">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform">📱</span>
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform">
+                    <Phone className="h-6 w-6 text-white/80" />
+                  </span>
                   +91 7710597386
                 </div>
                 <a href="https://github.com/HemenBhasin" target="_blank" rel="noreferrer" className="group flex items-center gap-4 text-white/80 hover:text-white transition-colors text-lg">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform">💻</span>
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform">
+                    <Code2 className="h-6 w-6 text-white/80" />
+                  </span>
                   GitHub
                 </a>
                 <a href="https://linkedin.com/in/hemen-bhasin" target="_blank" rel="noreferrer" className="group flex items-center gap-4 text-white/80 hover:text-white transition-colors text-lg">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform">💼</span>
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform">
+                    <Briefcase className="h-6 w-6 text-white/80" />
+                  </span>
                   LinkedIn
                 </a>
                 <div className="group flex items-center gap-4 text-white/80 hover:text-white transition-colors text-lg mt-2 cursor-pointer">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform">📍</span>
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform">
+                    <MapPin className="h-6 w-6 text-white/80" />
+                  </span>
                   Patiala, Punjab, India
                 </div>
               </div>
