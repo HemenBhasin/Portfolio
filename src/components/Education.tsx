@@ -61,13 +61,13 @@ export default function Education() {
                 <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-2xl shadow-inner border border-white/10" style={{ marginLeft: '3px' }}>
                   🎓
                 </span>
-                <h3 className="text-lg font-semibold leading-tight text-white/95 sm:text-xl" style={{ marginLeft: '5px' }}>
+                <h3 className="text-lg font-semibold leading-tight text-white/95 sm:text-xl" style={{ marginLeft: '15px', marginTop: '8px', marginBottom: '8px' }}>
                   Bachelor of Computer Science and Engineering
                 </h3>
               </div>
 
               <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-5">
-                <span className="text-[11px] font-bold tracking-widest text-white/40 uppercase" style={{ marginLeft: '15px' }}>
+                <span className="text-[11px] font-bold tracking-widest text-white/40 uppercase" style={{ marginLeft: '20px', marginTop: '8px', marginBottom: '8px' }}>
                   VIT Bhopal University, Bhopal, India (2023-2027)
                 </span>
               </div>
