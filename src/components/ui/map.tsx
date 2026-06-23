@@ -185,6 +185,7 @@ export const Map = forwardRef<MapRef, MapProps>(function Map(
   const [mapInstance, setMapInstance] = useState<MapLibreGL.Map | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isStyleLoaded, setIsStyleLoaded] = useState(false);
+  const [error, setError] = useState(false);
   const currentStyleRef = useRef<MapStyleOption | null>(null);
   const styleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const internalUpdateRef = useRef(false);
@@ -221,48 +222,59 @@ export const Map = forwardRef<MapRef, MapProps>(function Map(
       resolvedTheme === "dark" ? mapStyles.dark : mapStyles.light;
     currentStyleRef.current = initialStyle;
 
-    const map = new MapLibreGL.Map({
-      container: containerRef.current,
-      style: initialStyle,
-      renderWorldCopies: false,
-      attributionControl: {
-        compact: true,
-      },
-      ...props,
-      ...viewport,
-    });
+    try {
 
-    const styleDataHandler = () => {
-      clearStyleTimeout();
-      styleTimeoutRef.current = setTimeout(() => {
-        setIsStyleLoaded(true);
-        if (projection) {
-          map.setProjection(projection);
-        }
-      }, 100);
-    };
-    const loadHandler = () => setIsLoaded(true);
+      const map = new MapLibreGL.Map({
+        container: containerRef.current,
+        style: initialStyle,
+        renderWorldCopies: false,
+        attributionControl: {
+          compact: true,
+        },
+        ...props,
+        ...viewport,
+      });
 
-    const handleMove = () => {
-      if (internalUpdateRef.current) return;
-      onViewportChangeRef.current?.(getViewport(map));
-    };
+      const styleDataHandler = () => {
+        clearStyleTimeout();
+        styleTimeoutRef.current = setTimeout(() => {
+          setIsStyleLoaded(true);
+          if (projection) {
+            map.setProjection(projection);
+          }
+        }, 100);
+      };
+      const loadHandler = () => setIsLoaded(true);
 
-    map.on("load", loadHandler);
-    map.on("styledata", styleDataHandler);
-    map.on("move", handleMove);
-    setMapInstance(map);
+      const handleMove = () => {
+        if (internalUpdateRef.current) return;
+        onViewportChangeRef.current?.(getViewport(map));
+      };
 
-    return () => {
-      clearStyleTimeout();
-      map.off("load", loadHandler);
-      map.off("styledata", styleDataHandler);
-      map.off("move", handleMove);
-      map.remove();
-      setIsLoaded(false);
-      setIsStyleLoaded(false);
-      setMapInstance(null);
-    };
+      map.on("load", loadHandler);
+      map.on("styledata", styleDataHandler);
+      map.on("move", handleMove);
+      setMapInstance(map);
+
+      return () => {
+        clearStyleTimeout();
+        map.off("load", loadHandler);
+        map.off("styledata", styleDataHandler);
+        map.off("move", handleMove);
+        map.remove();
+        setIsLoaded(false);
+        setIsStyleLoaded(false);
+        setMapInstance(null);
+      };
+    } catch (err) {
+      console.warn("MapLibre initialization failed:", err);
+      setError(true);
+      return () => {
+        setIsLoaded(false);
+        setIsStyleLoaded(false);
+        setMapInstance(null);
+      };
+    }
   }, []);
 
   // Sync controlled viewport to map
@@ -323,7 +335,13 @@ export const Map = forwardRef<MapRef, MapProps>(function Map(
         ref={containerRef}
         className={cn("relative h-full w-full", className)}
       >
-        {(!isLoaded || loading) && <DefaultLoader />}
+        {(!isLoaded || loading) && !error && <DefaultLoader />}
+        {error && (
+          <div className="bg-background/50 absolute inset-0 z-10 flex flex-col items-center justify-center backdrop-blur-sm p-4 text-center">
+            <p className="text-sm font-medium text-white/80 mb-1">3D Map preview unavailable</p>
+            <p className="text-xs text-white/50">Please enable WebGL or hardware acceleration to view the interactive map.</p>
+          </div>
+        )}
         {mapInstance && children}
       </div>
     </MapContext.Provider>
