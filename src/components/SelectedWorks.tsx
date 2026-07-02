@@ -11,7 +11,7 @@ const PROJECTS = [
     title: 'Myth & Legend Explorer',
     tech: ['NLP', 'Next.js', 'Flask'],
     description: 'Folklore analysis platform using Sentence-BERT with 90% accuracy, ATU motif detection, and Gemini API retellings.',
-    image: '/project_folklore.png',
+    image: '/mythandlegends_thumbnail.png',
     link: 'https://github.com/HemenBhasin',
   },
   {
@@ -19,7 +19,7 @@ const PROJECTS = [
     title: 'Sentiment Analyzer',
     tech: ['NLP', 'DistilBERT', 'spaCy'],
     description: 'Context-aware sentiment analysis with 92% accuracy, 10-tier scoring, and aspect-based Plotly dashboards.',
-    image: '/project_nlp.png',
+    image: '/semantic_analyzer_thumbnail.png',
     link: 'https://github.com/HemenBhasin',
   },
   {
@@ -27,7 +27,7 @@ const PROJECTS = [
     title: 'VivaQ Quiz Platform',
     tech: ['React', 'MongoDB', 'Firebase'],
     description: 'AI-powered quiz platform with auto-grading, role-based dashboards, and real-time submission tracking.',
-    image: '/project_quiz.png',
+    image: '/vivaq_thumbnail.png',
     link: 'https://github.com/HemenBhasin',
   },
 ];

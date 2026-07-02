@@ -36,6 +36,11 @@ body {
   overflow-x: hidden;
 }
 
+body.custom-cursor-enabled,
+body.custom-cursor-enabled * {
+  cursor: none !important;
+}
+
 /* ══════════════════════════════════════════════
    LAYOUT: Content floating over fixed video
    ══════════════════════════════════════════════ */
